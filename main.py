@@ -4,9 +4,7 @@ from OpenGL.GLUT import *
 
 import math
 
-# --------------------------------------------------
-# Window and scene settings
-# --------------------------------------------------
+
 
 WIDTH = 1000
 HEIGHT = 700
@@ -36,9 +34,7 @@ legAngle = 0.0
 cloudMove = 0.0
 
 
-# --------------------------------------------------
-# Basic drawing functions
-# --------------------------------------------------
+
 
 def drawCircle(radius):
     glBegin(GL_TRIANGLE_FAN)
@@ -52,7 +48,7 @@ def drawCircle(radius):
 
 
 def drawGround():
-    # Sandy desert ground
+    
     glColor3f(0.78, 0.61, 0.38)
     glBegin(GL_QUADS)
     glNormal3f(0, 1, 0)
@@ -62,7 +58,7 @@ def drawGround():
     glVertex3f(-35, 0, 35)
     glEnd()
 
-    # Simple desert surface lines
+    
     glDisable(GL_LIGHTING)
     glColor3f(0.69, 0.51, 0.31)
     glBegin(GL_LINES)
@@ -78,7 +74,7 @@ def drawDune(x, z, width, height, depth):
     glTranslatef(x, 0, z)
     glColor3f(0.86, 0.68, 0.43)
 
-    # Low-poly sand dune
+   
     glBegin(GL_TRIANGLES)
     glNormal3f(0, 1, 0)
     glVertex3f(-width, 0, -depth)
@@ -104,7 +100,7 @@ def drawPyramid(x, z, size):
     glPushMatrix()
     glTranslatef(x, 0, z)
 
-    # Four triangular faces with separate sand colors
+   
     glBegin(GL_TRIANGLES)
 
     glColor3f(0.91, 0.69, 0.36)
@@ -143,21 +139,21 @@ def drawSun():
     glPushMatrix()
     glTranslatef(sunX, sunY, -5)
 
-    # Deep orange-red outer glow
+   
     glColor4f(1.0, 0.10, 0.005, 0.20)
     glPushMatrix()
     glScalef(2.0, 2.0, 2.0)
     glutSolidSphere(1.0, 28, 28)
     glPopMatrix()
 
-    # Warm red-orange inner glow
+   
     glColor4f(1.0, 0.22, 0.005, 0.28)
     glPushMatrix()
     glScalef(1.25, 1.25, 1.25)
     glutSolidSphere(1.0, 28, 28)
     glPopMatrix()
 
-    # Fully filled deep orange-red sun
+    
     glColor3f(1.0, 0.20, 0.015)
     glutSolidSphere(0.88, 36, 36)
 
@@ -192,7 +188,7 @@ def drawPalmTree(x, z, height):
     glPushMatrix()
     glTranslatef(x, 0, z)
 
-    # Trunk
+   
     glColor3f(0.40, 0.23, 0.12)
     glPushMatrix()
     glTranslatef(0, height / 2, 0)
@@ -200,7 +196,7 @@ def drawPalmTree(x, z, height):
     glutSolidCube(1)
     glPopMatrix()
 
-    # Palm leaves
+    
     glColor3f(0.16, 0.38, 0.17)
     glBegin(GL_TRIANGLES)
     for angle in range(0, 360, 45):
@@ -218,7 +214,7 @@ def drawSphinx():
     glPushMatrix()
     glTranslatef(-8, 0, 1)
 
-    # Main body
+    
     glColor3f(0.72, 0.52, 0.31)
     glPushMatrix()
     glTranslatef(0, 0.75, 0)
@@ -226,14 +222,14 @@ def drawSphinx():
     glutSolidCube(1)
     glPopMatrix()
 
-    # Head
+    
     glColor3f(0.83, 0.64, 0.41)
     glPushMatrix()
     glTranslatef(1.05, 1.45, 0)
     glutSolidSphere(0.48, 24, 24)
     glPopMatrix()
 
-    # Front paws
+    
     glColor3f(0.65, 0.45, 0.27)
     for z in (-0.42, 0.42):
         glPushMatrix()
@@ -249,7 +245,7 @@ def drawCamel():
     glPushMatrix()
     glTranslatef(camelX, 0, camelZ)
 
-    # Body
+    
     glColor3f(0.62, 0.36, 0.16)
     glPushMatrix()
     glTranslatef(0, 1.05, 0)
@@ -257,7 +253,7 @@ def drawCamel():
     glutSolidCube(1)
     glPopMatrix()
 
-    # Hump
+    
     glColor3f(0.72, 0.44, 0.21)
     glPushMatrix()
     glTranslatef(-0.10, 1.68, 0)
@@ -265,7 +261,7 @@ def drawCamel():
     glutSolidSphere(1, 20, 20)
     glPopMatrix()
 
-    # Neck
+    
     glColor3f(0.62, 0.36, 0.16)
     glPushMatrix()
     glTranslatef(0.63, 1.68, 0)
@@ -274,13 +270,13 @@ def drawCamel():
     glutSolidCube(1)
     glPopMatrix()
 
-    # Head
+    
     glPushMatrix()
     glTranslatef(0.92, 2.22, 0)
     glutSolidSphere(0.30, 20, 20)
     glPopMatrix()
 
-    # Four animated legs
+    
     glColor3f(0.48, 0.27, 0.13)
     for i, x in enumerate((-0.52, 0.52)):
         for j, z in enumerate((-0.25, 0.25)):
@@ -299,7 +295,7 @@ def drawCamel():
 
 
 def drawShadow(x, z, sx, sz):
-    # Transparent oval ground shadow (blending)
+    
     glDisable(GL_LIGHTING)
     glEnable(GL_BLEND)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -316,32 +312,30 @@ def drawShadow(x, z, sx, sz):
     glEnable(GL_LIGHTING)
 
 
-# --------------------------------------------------
-# Scene drawing
-# --------------------------------------------------
+
 
 def main():
     drawGround()
 
-    # Sand dunes behind the main objects
+    
     drawDune(-15, -9, 8, 2.2, 5)
     drawDune(14, -10, 9, 2.6, 6)
 
-    # Pyramids
+    
     drawPyramid(-5, -7, 3.2)
     drawPyramid(2, -10, 4.3)
     drawPyramid(10, -7, 2.7)
 
-    # Desert objects
+    
     drawPalmTree(-13, 0, 3.4)
     drawPalmTree(13, 1, 3.0)
     drawSphinx()
 
-    # Clouds
+    
     drawCloud(-7 + cloudMove, 10, -8, 1.4)
     drawCloud(4 + cloudMove, 11, -10, 1.1)
 
-    # Ground shadows
+    
     drawShadow(-5, -7, 3.2, 1.6)
     drawShadow(2, -10, 4.3, 2.1)
     drawShadow(10, -7, 2.7, 1.4)
@@ -361,7 +355,7 @@ def showScreen():
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 
-    # Orbit camera: pitch controls the view from normal to overhead.
+    
     angle = math.radians(cameraAngle)
     pitch = math.radians(cameraPitch)
     horizontalDistance = cameraDistance * math.cos(pitch)
@@ -374,7 +368,7 @@ def showScreen():
               0, 2.0, -3.0,
               0, 1, 0)
 
-    # Position light after setting the camera
+    
     lightPosition = [5.0, 10.0, 5.0, 1.0]
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition)
 
@@ -382,15 +376,13 @@ def showScreen():
     glutSwapBuffers()
 
 
-# --------------------------------------------------
-# Animation
-# --------------------------------------------------
+
 
 def update(value):
     global camelX, camelDirection, legAngle, cloudMove
     global cameraAngle, cameraPitch, cameraDistance
 
-    # Smooth camera interpolation
+    
     cameraAngle += (targetAngle - cameraAngle) * 0.12
     cameraPitch += (targetPitch - cameraPitch) * 0.12
     cameraDistance += (targetDistance - cameraDistance) * 0.12
@@ -413,9 +405,7 @@ def update(value):
     glutTimerFunc(16, update, 0)
 
 
-# --------------------------------------------------
-# Keyboard controls
-# --------------------------------------------------
+
 
 def normalKey(key, x, y):
     global paused, targetAngle, targetPitch, targetDistance
@@ -458,9 +448,7 @@ def specialKey(key, x, y):
 
     glutPostRedisplay()
 
-# --------------------------------------------------
-# Mouse controls
-# --------------------------------------------------
+
 
 def mouseClick(button, state, x, y):
     global dragging, dragObject, lastMouseX, lastMouseY
@@ -469,7 +457,7 @@ def mouseClick(button, state, x, y):
         if state == GLUT_DOWN:
             mouseY = HEIGHT - y
 
-            # Upper-right sky selects the sun; other areas select the camel.
+            
             if x > WIDTH * 0.58 and mouseY > HEIGHT * 0.55:
                 dragObject = "sun"
             else:
@@ -493,7 +481,7 @@ def mouseDrag(x, y):
         dx = x - lastMouseX
         dy = y - lastMouseY
 
-        # Move the selected object in the same direction as the mouse.
+        
         if dragObject == "sun":
             sunX += dx * 0.025
             sunY -= dy * 0.025
@@ -510,9 +498,7 @@ def mouseDrag(x, y):
         lastMouseY = y
         glutPostRedisplay()
 
-# --------------------------------------------------
-# Reset
-# --------------------------------------------------
+
 
 def resetScene():
     global paused, sunX, sunY, camelX, camelZ
@@ -542,9 +528,7 @@ def resetScene():
     glutPostRedisplay()
 
 
-# --------------------------------------------------
-# OpenGL initialization
-# --------------------------------------------------
+
 
 glutInit()
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
@@ -555,10 +539,10 @@ glutCreateWindow(b"3D Egyptian Pyramid and Desert Environment Simulation")
 glEnable(GL_DEPTH_TEST)
 glEnable(GL_NORMALIZE)
 
-# Smooth shading
+
 glShadeModel(GL_SMOOTH)
 
-# Lighting
+
 glEnable(GL_LIGHTING)
 glEnable(GL_LIGHT0)
 glEnable(GL_COLOR_MATERIAL)
@@ -568,11 +552,11 @@ glLightfv(GL_LIGHT0, GL_AMBIENT, [0.35, 0.30, 0.24, 1.0])
 glLightfv(GL_LIGHT0, GL_DIFFUSE, [0.95, 0.86, 0.72, 1.0])
 glLightfv(GL_LIGHT0, GL_SPECULAR, [0.35, 0.35, 0.35, 1.0])
 
-# Blending
+
 glEnable(GL_BLEND)
 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-# Fog
+
 glEnable(GL_FOG)
 fogColor = [0.72, 0.78, 0.78, 1.0]
 glFogfv(GL_FOG_COLOR, fogColor)
